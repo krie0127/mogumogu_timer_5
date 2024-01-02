@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>タイマー</title>
+    <%= csrf_meta_tags %>
+    <%= javascript_include_tag 'index', 'data-turbolinks-track': 'reload'%>
+  </head>
+  <body>
+    <h1>タイマー</h1>
+    <p id="timer">00:00:00</p>
+    <button id="startTimer" class="text-blue-500">スタート</button>
+    <button id="stopTimer" >ストップ</button>
+    <button id="resetTimer">リセット</button>
+    <button id="onClickPost">登録</button>
+
+    <script>
+      console.log("hello")
+      const url = "https://jsonplaceholder.typicode.com/posts"
+      const getPosts = async () => {
+      const res = await fetch(url)
+      const data = await res.json()
+      await console.log(data)
+      } 
+    </script>
+       
+  </body>
+</html>
+
