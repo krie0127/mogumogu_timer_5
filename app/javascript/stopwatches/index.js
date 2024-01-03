@@ -4,8 +4,8 @@ let hours = 0;
 let intervalId;
 let userId;
 
-console.log("call index.js")
-console.log(window)
+// console.log("call index.js")
+// console.log(window)
 
 
 function startTimer() {
