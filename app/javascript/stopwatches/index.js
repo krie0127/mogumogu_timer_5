@@ -64,9 +64,9 @@ function onClickPost() {
   const data = res.json()
 
   console.log(data)
-}
 
 window.onClickPost = onClickPost
+}
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
