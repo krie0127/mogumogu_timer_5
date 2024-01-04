@@ -47,7 +47,7 @@ function updateTimer() {
 }
 
 window.updateTimer = updateTimer
-}
+
 
 function onClickPost() {
   console.log("call onClickPost")
@@ -64,15 +64,17 @@ function onClickPost() {
   const data = res.json()
 
   console.log(data)
+}
 
 window.onClickPost = onClickPost
 }
 
-
-document.addEventListener('DOMContentLoaded', (event) => {
-  document.getElementById("startTimer").addEventListener("click", startTimer);
-  document.getElementById("stopTimer").addEventListener("click", stopTimer);
-  document.getElementById("resetTimer").addEventListener("click", resetTimer);
-  document.getElementById("updateTimer").addEventListener("click", updateTimer);
-  document.getElementById("onClickPost").addEventListener("click", onClickPost);
+if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById("startTimer").addEventListener("click", startTimer);
+    document.getElementById("stopTimer").addEventListener("click", stopTimer);
+    document.getElementById("resetTimer").addEventListener("click", resetTimer);
+    document.getElementById("updateTimer").addEventListener("click", updateTimer);
+    document.getElementById("onClickPost").addEventListener("click", onClickPost);
 });
+}
