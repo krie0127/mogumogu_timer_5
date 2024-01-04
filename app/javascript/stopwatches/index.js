@@ -7,8 +7,8 @@ let userId;
 // console.log("call index.js")
 // console.log(window)
 
-
-function startTimer() {
+if (typeof window !== 'undefined') {
+  function startTimer() {
   intervalId = setInterval(updateTimer, 1000);
 }
 
@@ -47,6 +47,7 @@ function updateTimer() {
 }
 
 window.updateTimer = updateTimer
+}
 
 function onClickPost() {
   console.log("call onClickPost")
@@ -66,6 +67,7 @@ function onClickPost() {
 }
 
 window.onClickPost = onClickPost
+
 
 document.addEventListener('DOMContentLoaded', (event) => {
   document.getElementById("startTimer").addEventListener("click", startTimer);
