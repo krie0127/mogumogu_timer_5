@@ -1,1 +1,1 @@
-web: node app/javascript/stopwatches/index.js   
+web: bundle exec puma -C config/puma.rb
