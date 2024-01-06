@@ -1,28 +1,81 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>タイマー</title>
-    <%= csrf_meta_tags %>
-    <%= javascript_include_tag 'index', 'data-turbolinks-track': 'reload'%>
-  </head>
-  <body>
-    <h1>タイマー</h1>
-    <p id="timer">00:00:00</p>
-    <button id="startTimer" class="text-blue-500">スタート</button>
-    <button id="stopTimer" >ストップ</button>
-    <button id="resetTimer">リセット</button>
-    <button id="onClickPost">登録</button>
+<body>
+  <h1>タイマー</h1>
+  <p id="timer">00:00:00</p>
+  <button id="startTimer" class="text-blue-500">スタート</button>
+  <button id="stopTimer" >ストップ</button>
+  <button id="resetTimer">リセット</button>
+  <button id="onClickPost">登録</button>
 
-    <script>
-      console.log("hello")
-      const url = "https://jsonplaceholder.typicode.com/posts"
-      const getPosts = async () => {
-      const res = await fetch(url)
-      const data = await res.json()
-      await console.log(data)
-      } 
-    </script>
+  <script>
+    const url = "https://jsonplaceholder.typicode.com/posts"
+    const getPosts = async () => {
+    const res = await fetch(url)
+    const data = await res.json()
+    await console.log(data)
+    } 
 
-  </body>
-</html>
+    let seconds = 0;
+    let minutes = 0;
+    let hours = 0;
+    let intervalId;
+
+    function startTimer() {
+    intervalId = setInterval(updateTimer, 1000);
+    }
+
+    function stopTimer() {
+    clearInterval(intervalId);
+    }
+
+    function resetTimer() {
+    clearInterval(intervalId);
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    document.getElementById("timer").innerText = "00:00:00";
+    }
+
+    function updateTimer() {
+    seconds++;
+    if (seconds === 60) {
+        minutes++;
+        seconds = 0;
+    }
+    if (minutes === 60) {
+        hours++;
+        minutes = 0;
+    }
+    const formattedSeconds = seconds.toString().padStart(2, "0");
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    const formattedHours = hours.toString().padStart(2, "0");
+    document.getElementById("timer").innerText = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+    }
+
+    function onClickPost() {
+    console.log("call onClickPost");
+    const url = "/stopwatches"; // ベースURLは相対パスに変更
+    const obj = { hours: hours, minutes: minutes, seconds: seconds };
+    console.log(JSON.stringify(obj));
+    fetch(url, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+    }
+
+    // DOMContentLoaded イベントリスナーを追加
+    document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("startTimer").addEventListener("click", startTimer);
+    document.getElementById("stopTimer").addEventListener("click", stopTimer);
+    document.getElementById("resetTimer").addEventListener("click", resetTimer);
+    document.getElementById("updateTimer").addEventListener("click", updateTimer);
+    document.getElementById("onClickPost").addEventListener("click", onClickPost);
+});
+  </script>
+</body>
 
