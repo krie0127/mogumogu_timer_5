@@ -1,82 +1,82 @@
-// let seconds = 0;
-// let minutes = 0;
-// let hours = 0;
-// let intervalId;
-// let userId;
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+let intervalId;
+let userId;
 
-// console.log("call index.js")
-// // console.log(window)
+console.log("call index.js")
+// console.log(window)
 
-// if (typeof window !== 'undefined') {
-//   function startTimer() {
-//   intervalId = setInterval(updateTimer, 1000);
-// }
+if (typeof window !== 'undefined') {
+  function startTimer() {
+  intervalId = setInterval(updateTimer, 1000);
+}
 
-// window.startTimer = startTimer
+window.startTimer = startTimer
 
-// function stopTimer() {
-//   clearInterval(intervalId);
-// }
+function stopTimer() {
+  clearInterval(intervalId);
+}
 
-// window.stopTimer = stopTimer
+window.stopTimer = stopTimer
 
-// function resetTimer() {
-//   clearInterval(intervalId);
-//   seconds = 0;
-//   minutes = 0;
-//   hours = 0;
-//   document.getElementById("timer").innerText = "00:00:00";
-// }
+function resetTimer() {
+  clearInterval(intervalId);
+  seconds = 0;
+  minutes = 0;
+  hours = 0;
+  document.getElementById("timer").innerText = "00:00:00";
+}
 
-// window.resetTimer = resetTimer
+window.resetTimer = resetTimer
 
-// function updateTimer() {
-//   seconds++;
-//   if (seconds === 60) {
-//     minutes++;
-//     seconds = 0;
-//   }
-//   if (minutes === 60) {
-//     hours++;
-//     minutes = 0;
-//   }
-//   const formattedSeconds = seconds.toString().padStart(2, "0");
-//   const formattedMinutes = minutes.toString().padStart(2, "0");
-//   const formattedHours = hours.toString().padStart(2, "0");
-//   document.getElementById("timer").innerText = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-// }
+function updateTimer() {
+  seconds++;
+  if (seconds === 60) {
+    minutes++;
+    seconds = 0;
+  }
+  if (minutes === 60) {
+    hours++;
+    minutes = 0;
+  }
+  const formattedSeconds = seconds.toString().padStart(2, "0");
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+  const formattedHours = hours.toString().padStart(2, "0");
+  document.getElementById("timer").innerText = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
 
-// window.updateTimer = updateTimer
+window.updateTimer = updateTimer
 
 
-// function onClickPost() {
-//   console.log("call onClickPost")
-//   const url = "http://localhost:3000/stopwatches"
-//   const obj = {hours: hours, minutes: minutes, seconds: seconds}
-//   console.log(JSON.stringify(obj))
-//   const res = fetch(url, {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//     },
-//   body: JSON.stringify(obj)
-//   })
-//   const data = res.json()
+function onClickPost() {
+  console.log("call onClickPost")
+  const url = "http://localhost:3000/stopwatches"
+  const obj = {hours: hours, minutes: minutes, seconds: seconds}
+  console.log(JSON.stringify(obj))
+  const res = fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    },
+  body: JSON.stringify(obj)
+  })
+  const data = res.json()
 
-//   console.log(data)
-// }
+  console.log(data)
+}
 
-// window.onClickPost = onClickPost
-// }
+window.onClickPost = onClickPost
+}
 
-// if (typeof document !== 'undefined') {
-//     document.addEventListener('DOMContentLoaded', (event) => {
-//     document.getElementById("startTimer").addEventListener("click", startTimer);
-//     document.getElementById("stopTimer").addEventListener("click", stopTimer);
-//     document.getElementById("resetTimer").addEventListener("click", resetTimer);
-//     document.getElementById("updateTimer").addEventListener("click", updateTimer);
-//     document.getElementById("onClickPost").addEventListener("click", onClickPost);
-// });
-// }
+if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById("startTimer").addEventListener("click", startTimer);
+    document.getElementById("stopTimer").addEventListener("click", stopTimer);
+    document.getElementById("resetTimer").addEventListener("click", resetTimer);
+    document.getElementById("updateTimer").addEventListener("click", updateTimer);
+    document.getElementById("onClickPost").addEventListener("click", onClickPost);
+});
+}
 
-console.log("test");
+console.log("test"); 
