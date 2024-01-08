@@ -5,13 +5,12 @@ class OmniauthCallbacksController < ApplicationController
   end
 
   def failure
-    # ここに失敗時の処理を記述する
-    redirect_to root_path, alert: "認証に失敗しました。"# 例: ルートパスにリダイレクトする
+    redirect_to root_path, alert: "認証に失敗しました。"
   end
-
+  
   private
   
-  def basic_action
+  def basic_action  
     @omniauth = request.env["omniauth.auth"]
     if @omniauth.present?
       @profile = User.find_or_initialize_by(provider: @omniauth["provider"], uid: @omniauth["uid"])
