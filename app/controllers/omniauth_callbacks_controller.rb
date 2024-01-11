@@ -1,5 +1,5 @@
-class OmniauthCallbacksController < ApplicationController
-
+class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  
   def line
     basic_action
   end
@@ -7,7 +7,7 @@ class OmniauthCallbacksController < ApplicationController
   def failure
     redirect_to root_path, alert: "認証に失敗しました。"
   end
-  
+
   private
   
   def basic_action  
