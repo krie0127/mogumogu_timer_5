@@ -1,7 +1,7 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
   def line
-    basic_action
+    redirect_to stopwatches_path
   end
 
   def failure

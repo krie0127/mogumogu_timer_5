@@ -30,6 +30,8 @@ gem "cssbundling-rails"
 gem "jbuilder"
 
 gem 'devise'
+gem 'omniauth-line'
+gem 'omniauth-rails_csrf_protection'
 
 gem 'dotenv-rails'
 
