@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   }
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
-    get 'users/sign_in', to: redirect('/users/auth/line'), as: :new_user_session
+    # get 'users/sign_in', to: redirect('/users/auth/line'), as: :new_user_session
   end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
