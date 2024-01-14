@@ -135,6 +135,7 @@ GEM
       railties (>= 6.0.0)
     json (2.7.1)
     jwt (2.7.1)
+    line-bot-api (1.28.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -309,6 +310,7 @@ DEPENDENCIES
   dotenv-rails
   jbuilder
   jsbundling-rails
+  line-bot-api
   omniauth-line
   omniauth-rails_csrf_protection
   pg (~> 1.1)
