@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :stopwatches, only: %i[update index]
   post '/stopwatches', to: 'stopwatches#create'
 
+  resources :notification_settings, only: %i[new create edit update]
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
