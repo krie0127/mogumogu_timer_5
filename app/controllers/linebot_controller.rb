@@ -31,14 +31,15 @@ class LinebotController < ApplicationController
             type: 'text',
             text: event.message['text']
           }
+          client.reply_message(event['replyToken'], message)
         end
-      end
-      when Line::Bot::Event::MessageType::Text
-        message = {
-          type: 'text',
-          text: event.message['text']
-        }
-        client.reply_message(event['replyToken'], message)
+      # end
+      # when Line::Bot::Event::MessageType::Text
+      #   message = {
+      #     type: 'text',
+      #     text: event.message['text']
+      #   }
+      #   client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::MessageType::Follow #ユーザーID保存
         userId = event['source']['userId'] 
         User.find_or_create_by(uid: userId)
