@@ -1,7 +1,6 @@
 namespace :push_line do 
   desc "食事時間計測するリマインドを送信する" 
   task push_line_message_time: :environment do # タスク名の定義（envriment doの後に実行）
-    notificaton_settings = notificationsetting.new
       message = {
         type: 'text',
         text: 'もぐもぐタイムの記録の時間です！'
