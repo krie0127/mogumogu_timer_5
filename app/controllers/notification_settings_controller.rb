@@ -9,6 +9,7 @@ class NotificationSettingsController < ApplicationController
   end
 
   def create
+    debugger
     saved = NotificationSetting.create_or_update_by_user(current_user, notification_setting_params)
 
     if saved

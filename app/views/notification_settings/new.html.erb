@@ -4,12 +4,11 @@
       <h1 class="font-custom text-4xl mb-6 text-sky-900 font-kaisei-decol text-center">
         <i class="fas fa-bell"></i> 通知設定 <i class="fas fa-cogs ml-2"></i>
       </h1>
+    <div class="mb-4">
+      <%= form.time_field :preferred_time, list: "data-list", step: "1800", class: "block text-lg text-sky-900 mb-2" %>
 
-  <div class="mb-4">
-    <%= form.time_field :preferred_time, list: "data-list", step: "1800", class: "block text-lg text-sky-900 mb-2" %>
-
-    <datalist id="data-list"></datalist>
-    <script>
+      <datalist id="data-list"></datalist>
+      <script>
         const dataList = document.getElementById('data-list');
 
         for (let hour = 0; hour < 24; hour++) {
@@ -20,13 +19,13 @@
                 dataList.appendChild(option);
             }
         }
-    </script>
-  </div>
+      </script>
+    </div>
 
-      <div class="text-center mt-6">
-        <%= form.button class: "relative inline-block text-lg group" do %>
-          <span class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
-            <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
+    <div class="text-center mt-6">
+      <%= form.button class: "relative inline-block text-lg group" do %>
+        <span class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
+          <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
             <span class="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-gray-900 group-hover:-rotate-180 ease"></span>
             <span class="relative">保存</span>
           </span>
