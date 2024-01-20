@@ -22,7 +22,7 @@
 namespace :push_line do  
   desc "食事時間計測するリマインドを送信する"
   task push_line_message_time: :environment do # タスク名の定義（envriment doの後に実行）
-    NotificationSettings.where(preferred_time: Time.current.strftime("%H:%M")).find_each do |setting| #現在の時間に合致するpreferred_timeを取得
+    NotificationSetting.where(preferred_time: Time.current.strftime("%H:%M")).find_each do |setting| #現在の時間に合致するpreferred_timeを取得
       user = User.find(setting.user_id)
       message = {
         type: 'text',
