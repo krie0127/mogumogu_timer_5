@@ -14,10 +14,10 @@ namespace :push_line do
     end
   end
 
-#   task :send_reminders => :environment do
-#     User.send_reminders
-#   end
-# end
+  task :send_reminders => :environment do
+    User.send_reminders
+  end
+end
 
 # namespace :push_line do  
 #   desc "食事時間計測するリマインドを送信する"
