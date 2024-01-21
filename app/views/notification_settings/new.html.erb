@@ -22,25 +22,6 @@
       </script>
     </div>
 
-    <div class="mb-4">
-      <%= form.time_field :preferred_time, list: "data-list", step: "1800", class: "block text-lg text-sky-900 mb-2" %>
-
-      <datalist id="data-list"></datalist>
-      <script>
-        const dataList = document.getElementById('data-list');
-
-        for (let hour = 0; hour < 24; hour++) {
-            for (let minute = 0; minute < 60; minute += 30) {
-                const value = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-                const option = document.createElement('option');
-                option.value = value;
-                dataList.appendChild(option);
-            }
-        }
-      </script>
-    </div>
-
-
     <div class="text-center mt-6">
       <%= form.button class: "relative inline-block text-lg group" do %>
         <span class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
