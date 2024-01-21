@@ -9,14 +9,24 @@ class NotificationSettingsController < ApplicationController
   end
 
   def create
-    saved = NotificationSetting.create_or_update_by_user(current_user, notification_setting_params)
+    @preferred_time = Preferred_time.new(notification_setting_params)
+    @preferred_time = current_user.id 
+    @preferred_time = current_user.uid
 
-    if saved
-      redirect_to root_path, notice: "通知設定が保存されました"
+    if @preferred_time.save
+      redirect_to root_path
     else
-      @notification_setting = current_user.notification_setting || NotificationSetting.new(notification_setting_params)
-      render :new
+      redirect_to new_notification_setting_path
     end
+
+    # saved = NotificationSetting.create_or_update_by_user(current_user, notification_setting_params)
+
+    # if saved
+    #   redirect_to root_path, notice: "通知設定が保存されました"
+    # else
+    #   @notification_setting = current_user.notification_setting || NotificationSetting.new(notification_setting_params)
+    #   render :new
+    # end
   end
 
   private
