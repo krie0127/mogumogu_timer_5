@@ -34,7 +34,7 @@ namespace :push_line do
 
     # 指定された時間帯に一致する通知設定を検索
     if time_ranges  
-      NotificationSetting.where(preferred_time: ("#{current_hour}:00".."#{current_hour}:59")).find_each do |setting|
+      NotificationSetting.where(preferred_time: time_ranges[0]..time_ranges[1]).find_each do |setting|
       # NotificationSetting.where(preferred_time: Time.current.strftime("%H:%M")).find_each do |setting| #現在の時間に合致するpreferred_timeを取得
         user = User.find(setting.user_id)
         message = {
