@@ -22,6 +22,7 @@
 namespace :push_line do  
   desc "食事時間計測するリマインドを送信する"
   task push_line_message_time: :environment do # タスク名の定義（envriment doの後に実行）
+    begin
     # current_time = Time.current.getlocal("+09:00") # JSTはUTC+9時間
     # current_hour = current_time.hour
     # current_minute = current_time.min
