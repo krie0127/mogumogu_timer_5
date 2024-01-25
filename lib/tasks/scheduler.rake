@@ -61,10 +61,9 @@ namespace :push_line do
       response = client.push_message(user.uid, message)
       Rails.logger.info("Sent notification to #{user.id}: #{response}")
       end
-      end
-      end
     end
   rescue => e
     Rails.logger.error("Error sending LINE notification: #{e.message}")
+  end
   end
 end
