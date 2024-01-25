@@ -26,19 +26,28 @@ namespace :push_line do
     current_hour = current_time.hour
     current_minute = current_time.min
 
-    NotificationSetting.where(preferred_time: ("#{current_hour}:00".."#{current_hour}:59")).find_each do |setting|
-    # NotificationSetting.where(preferred_time: Time.current.strftime("%H:%M")).find_each do |setting| #現在の時間に合致するpreferred_timeを取得
-      user = User.find(setting.user_id)
-      message = {
-        type: 'text',
-        text: 'もぐもぐタイム記録の時間です！'
-      }
-      client = Line::Bot::Client.new { |config|
-        config.channel_secret = ENV["LINE_SECRET"]
-        config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-      }
+    time_ranges = if current_minute.between?(0, 9)
+                    ["#{current_hour}:00", "#{current_hour}:09"]
+                  elsif current_minute.between?(30, 39)
+                    ["#{current_hour}:30", "#{current_hour}:39"]
+                  end
+
+    # 指定された時間帯に一致する通知設定を検索
+    if time_ranges  
+      NotificationSetting.where(preferred_time: ("#{current_hour}:00".."#{current_hour}:59")).find_each do |setting|
+      # NotificationSetting.where(preferred_time: Time.current.strftime("%H:%M")).find_each do |setting| #現在の時間に合致するpreferred_timeを取得
+        user = User.find(setting.user_id)
+        message = {
+          type: 'text',
+          text: 'もぐもぐタイム記録の時間です！'
+        }
+        client = Line::Bot::Client.new { |config|
+          config.channel_secret = ENV["LINE_SECRET"]
+          config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+        }
       response = client.push_message(user.uid, message)
       Rails.logger.info("Sent notification to #{user.id}: #{response}")
+      end
     end
   rescue => e
     Rails.logger.error("Error sending LINE notification: #{e.message}")
