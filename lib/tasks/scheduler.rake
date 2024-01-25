@@ -22,7 +22,7 @@
 namespace :push_line do  
   desc "食事時間計測するリマインドを送信する"
   task push_line_message_time: :environment do # タスク名の定義（envriment doの後に実行）
-    current_time = Time.current
+    current_time = Time.current.getlocal("+09:00") # JSTはUTC+9時間
     current_hour = current_time.hour
     current_minute = current_time.min
 
@@ -36,6 +36,7 @@ namespace :push_line do
     if time_ranges  
       NotificationSetting.where(preferred_time: time_ranges[0]..time_ranges[1]).find_each do |setting|
       # NotificationSetting.where(preferred_time: Time.current.strftime("%H:%M")).find_each do |setting| #現在の時間に合致するpreferred_timeを取得
+      # NotificationSetting.where(preferred_time: ("#{current_hour}:00".."#{current_hour}:59")).find_each do |setting|
         user = User.find(setting.user_id)
         message = {
           type: 'text',
