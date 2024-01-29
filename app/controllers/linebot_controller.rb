@@ -33,11 +33,10 @@ class LinebotController < ApplicationController
           }
           client.reply_message(event['replyToken'], message)
         end
-        
-      when Line::Bot::Event::MessageType::Follow #ユーザーID保存
+      when Line::Bot::Event::MessageType::Follow # ユーザーID保存
         userId = event['source']['userId'] 
         User.find_or_create_by(uid: userId)
-      when Line::Bot::Event::MessageType::Unfollow #ユーザーID削除
+      when Line::Bot::Event::MessageType::Unfollow # ユーザーID削除
         userId = event['source']['userId']  
         user = User.find_by(uid: userId)
         user.destroy if user.present?

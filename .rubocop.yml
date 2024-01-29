@@ -1,0 +1,17 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'config/puma.rb'
+    - 'config/initializers/*'
+    - 'bin/*'
+    - 'lib/tasks/**/*'
+
+Layout/LineLength:
+  Max: 200
+
+# Metrics/BlockLength:
+#   Max: 46
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
