@@ -15,14 +15,12 @@ namespace :push_line do
       # 指定された時間帯に一致する通知設定を検索
       if time_ranges
         NotificationSetting.where(preferred_time: time_ranges[0]..time_ranges[1]).find_each do |setting|
-          jst_preferred_time = setting.preferred_time + 9.hours
-
           user = User.find(setting.user_id)
           message = {
             type: 'text',
             text: 'もぐもぐタイム記録の時間です！'
           }
-          client = Line::Bot::Client.new {|config|
+          client = Line::Bot::Client.new { |config|
             config.channel_secret = ENV['LINE_SECRET']
             config.channel_token = ENV['LINE_CHANNEL_TOKEN']
           }
