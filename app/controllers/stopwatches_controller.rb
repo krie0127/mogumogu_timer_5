@@ -2,7 +2,7 @@ class StopwatchesController < ApplicationController
   def create
     hours = params[:hours]
     minutes = params[:minutes]
-    seconds = params[:seconds] 
+    seconds = params[:seconds]
 
     @time = Stopwatch.new(stopwatch_params)
 
@@ -11,7 +11,6 @@ class StopwatchesController < ApplicationController
     else
       render json: { status: 'error', message: 'Failed to save time' }
     end
-
   end
     
   def index
@@ -21,10 +20,9 @@ class StopwatchesController < ApplicationController
       format.json { render json: @times }
     end
   end
-    
+
   def update
     @time = Stopwatch.find(params[:id]) # 特定のタイムレコードを取得
-    
     if @time.update(stopwatch_params)
       redirect_to stopwatches_path, notice: 'Time record was successfully updated.'
     else
@@ -39,6 +37,6 @@ class StopwatchesController < ApplicationController
   end
   
   def stopwatch_params
-    params.require(:stopwatch).permit(:duration, :start_time, :end_time) 
+    params.require(:stopwatch).permit(:duration, :start_time, :end_time)
   end
 end

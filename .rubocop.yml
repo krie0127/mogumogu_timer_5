@@ -2,16 +2,20 @@ AllCops:
   Exclude:
     - 'vendor/**/*'
     - 'db/**/*'
-    - 'config/puma.rb'
-    - 'config/initializers/*'
+    - 'config/**/*'
     - 'bin/*'
     - 'lib/tasks/**/*'
+    - helpers/application_helper
+    - config.ru
 
 Layout/LineLength:
   Max: 200
 
-# Metrics/BlockLength:
-#   Max: 46
+Metrics/MethodLength:
+  Max: 30
+
+Style/Documentation:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
