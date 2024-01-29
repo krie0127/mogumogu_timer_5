@@ -1,17 +1,17 @@
 class LinebotController < ApplicationController
-  require 'line/bot'  # gem 'line-bot-api'
+  require 'line/bot' # gem 'line-bot-api'
 
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
 
   def client
     @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+      config.channel_secret = ENV['LINE_CHANNEL_SECRET']
+      config.channel_token = ENV['LINE_CHANNEL_TOKEN']
     }
   end
 
-  #LINEからのリクエスト処理   
+  # LINEからのリクエスト処理
   def callback
     body = request.body.read
 
@@ -44,6 +44,6 @@ class LinebotController < ApplicationController
       end
     }
 
-    head :ok #処理が正常な場合200OKレスポンスを返す
+    head :ok # 処理が正常な場合200OKレスポンスを返す
   end
 end
