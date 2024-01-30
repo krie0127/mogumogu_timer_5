@@ -1,0 +1,22 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/*'
+    - 'lib/tasks/**/*'
+    - 'helpers/application_helper'
+    - 'config.ru'
+    - 'app/mailers/*'
+
+Layout/LineLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 30
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

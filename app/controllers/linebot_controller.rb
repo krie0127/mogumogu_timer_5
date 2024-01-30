@@ -1,17 +1,17 @@
 class LinebotController < ApplicationController
-  require 'line/bot'  # gem 'line-bot-api'
+  require 'line/bot' # gem 'line-bot-api'
 
   # callbackアクションのCSRFトークン認証を無効
-  protect_from_forgery :except => [:callback]
+  protect_from_forgery except: [:callback]
 
   def client
-    @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-    }
+    @client ||= Line::Bot::Client.new do |config|
+      config.channel_secret = ENV['LINE_CHANNEL_SECRET']
+      config.channel_token = ENV['LINE_CHANNEL_TOKEN']
+    end
   end
 
-  #LINEからのリクエスト処理   
+  # LINEからのリクエスト処理
   def callback
     body = request.body.read
 
@@ -22,7 +22,7 @@ class LinebotController < ApplicationController
 
     events = client.parse_events_from(body)
 
-    events.each { |event|
+    events.each do |event|
       case event
       when Line::Bot::Event::Message
         case event.type
@@ -33,17 +33,16 @@ class LinebotController < ApplicationController
           }
           client.reply_message(event['replyToken'], message)
         end
-        
-      when Line::Bot::Event::MessageType::Follow #ユーザーID保存
-        userId = event['source']['userId'] 
-        User.find_or_create_by(uid: userId)
-      when Line::Bot::Event::MessageType::Unfollow #ユーザーID削除
-        userId = event['source']['userId']  
-        user = User.find_by(uid: userId)
+      when Line::Bot::Event::MessageType::Follow # ユーザーID保存
+        user_id = event['source']['user_id']
+        User.find_or_create_by(uid: user_id)
+      when Line::Bot::Event::MessageType::Unfollow # ユーザーID削除
+        user_id = event['source']['userId']
+        user = User.find_by(uid: user_id)
         user.destroy if user.present?
       end
-    }
+    end
 
-    head :ok #処理が正常な場合200OKレスポンスを返す
+    head :ok # 処理が正常な場合200OKレスポンスを返す
   end
 end
