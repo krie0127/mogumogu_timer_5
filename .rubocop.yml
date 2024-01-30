@@ -5,8 +5,9 @@ AllCops:
     - 'config/**/*'
     - 'bin/*'
     - 'lib/tasks/**/*'
-    - helpers/application_helper
-    - config.ru
+    - 'helpers/application_helper'
+    - 'config.ru'
+    - 'app/mailers/*'
 
 Layout/LineLength:
   Max: 200
