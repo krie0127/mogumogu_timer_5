@@ -14,7 +14,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @omniauth.present?
       @profile = User.find_or_initialize_by(provider: @omniauth['provider'], uid: @omniauth['uid'])
       if @profile.email.blank?
-        email = @omniauth['info']['email'] ? @omniauth['info']['email'] : "#{@omniauth['uid']}-#{@omniauth['provider']}@example.com"
+        # email = @omniauth['info']['email'] ? @omniauth['info']['email'] : "#{@omniauth['uid']}-#{@omniauth['provider']}@example.com"
+        email = @omniauth['info']['email'] || "#{@omniauth['uid']}-#{@omniauth['provider']}@example.com"
+
         @profile = current_user || User.create!(provider: @omniauth['provider'], uid: @omniauth['uid'], email: email, name: @omniauth['info']['name'], password: Devise.friendly_token[0, 20])
       end
       @profile.set_values(@omniauth)

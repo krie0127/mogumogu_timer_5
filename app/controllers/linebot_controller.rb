@@ -37,7 +37,7 @@ class LinebotController < ApplicationController
         user_id = event['source']['user_id']
         User.find_or_create_by(uid: user_id)
       when Line::Bot::Event::MessageType::Unfollow # ユーザーID削除
-        user_id = event['source']['userId'] 
+        user_id = event['source']['userId']
         user = User.find_by(uid: user_id)
         user.destroy if user.present?
       end
