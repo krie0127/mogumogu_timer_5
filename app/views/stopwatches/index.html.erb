@@ -38,8 +38,8 @@
       } else {
         stopTimer();
       startButton.innerText = "start"; // テキストを 'start' に戻す
-    } 
-  }
+      } 
+    }
 
     function startTimer() {
     startTime = new Date();  // 開始時刻を記録
@@ -50,14 +50,6 @@
     clearInterval(intervalId);
     endTime = new Date();  // 終了時刻を記録
     }
-
-    // function resetTimer() {
-    // clearInterval(intervalId);
-    // seconds = 0;
-    // minutes = 0;
-    // hours = 0;
-    // document.getElementById("timer").innerText = "00:00:00";
-    // }
 
     function updateTimer() {
     seconds++;
@@ -75,47 +67,16 @@
     document.getElementById("timer").innerText = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     }
 
-//     function onClickPost() {
-//     console.log("call onClickPost");
-//     const url = "/stopwatches"; // ベースURLは相対パスに変更
-//     const obj = {
-//       stopwatch: {
-//         start_time: startTime.toISOString(),
-//         end_time: endTime.toISOString()
-//       }
-//     }};
-//     // const obj = { hours: hours, minutes: minutes, seconds: seconds };
-//     console.log(JSON.stringify(obj));
-//     const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-//     fetch(url, {
-//         method: "POST",
-//         headers: {
-//         "Content-Type": "application/json",
-//         "X-CSRF-Token": csrfToken
-//         },
-//         body: JSON.stringify(obj)
-//     })
-//     .then(response => response.json())
-//     .then(data => console.log(data))
-//     // .catch(error => console.error('Error:', error));
-//     .catch(error => {
-//     console.error('Error:', error);
-//     if (error.response && error.response.data) {
-//         console.log(error.response.data);
-//     }
-// });
-
-function onClickPost() {
+  function onClickPost() {
     console.log("call onClickPost");
     const url = "/stopwatches"; // ベースURLは相対パスに変更
     
-    // startTimeとendTimeの定義がこの関数の外部にあることを確認してください。
     const obj = {
       stopwatch: {
         start_time: startTime.toISOString(),
         end_time: endTime.toISOString()
       }
-    }; // 余分な } を削除しました
+    };
 
     console.log(JSON.stringify(obj));
     const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -131,29 +92,16 @@ function onClickPost() {
     .then(data => console.log(data))
     .catch(error => {
         console.error('Error:', error);
-        // エラー応答がある場合はそのデータをログに記録します。
-        // このエラーハンドリングはAPI応答に依存するため、実際のAPIの設計に合わせて調整してください。
         if (error.response && error.response.data) {
             console.log(error.response.data);
         }
     });
-}
+  }
 
-    // DOMContentLoaded イベントリスナーを追加
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("startTimer").addEventListener("click", toggleTimer);
-    // document.getElementById("stopTimer").addEventListener("click", stopTimer);
     document.getElementById("onClickPost").addEventListener("click", onClickPost);
-
-  // 他のイベントリスナー...
-});
-//     document.addEventListener('DOMContentLoaded', () => {
-    // document.getElementById("startTimer").addEventListener("click", startTimer);
-    // document.getElementById("stopTimer").addEventListener("click", stopTimer);
-//     document.getElementById("resetTimer").addEventListener("click", resetTimer);
-//     document.getElementById("updateTimer").addEventListener("click", updateTimer);
-  
-// });
+  });
   </script>
 </body>
 

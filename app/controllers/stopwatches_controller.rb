@@ -2,7 +2,7 @@ class StopwatchesController < ApplicationController
   before_action :set_stopwatch, only: [:update] # 必要に応じて他のアクションを追加
 
   def create
-    @stopwatch = current_user.stopwatches.new(stopwatch_params) # current_userは現在ログインしているユーザーを指す仮のメソッドです
+    @stopwatch = current_user.stopwatches.new(stopwatch_params) 
 
     if @stopwatch.save
       render json: { status: 'success', message: 'Time saved successfully' }, status: :created
@@ -20,7 +20,6 @@ class StopwatchesController < ApplicationController
   end
 
   def update
-    # set_stopwatch メソッドにより @stopwatch は既に設定されています
     if @stopwatch.update(stopwatch_params)
       redirect_to stopwatches_path, notice: 'Time record was successfully updated.'
     else
