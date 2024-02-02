@@ -1,26 +1,21 @@
 <body>
-  <!-- <p id="timer">00:00:00</p> -->
-  <!-- <button id="startTimer" class="text-blue-500">スタート</button> -->
-  <!-- <button id="stopTimer" >ストップ</button> -->
-  <!-- <button id="resetTimer">リセット</button> -->
-  <!-- <button id="onClickPost">登録</button> --> 
+  <meta name="csrf-token" content="<%= form_authenticity_token %>"> 
 
-<div class="flex h-screen justify-center items-center bg-red-50">
-  <div class="p-20 bg-white rounded-2xl shadow-xl text-center">
-    <div id ="timer" class="text-6xl font-mono  text-sky-900 mb-4">
-      00:00
-    </div>
-    <div class="flex justify-center space-x-4">
-      <button id="startTimer" class="px-6 py-2 border rounded  text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono">
-        スタート
-      </button>
-      <button id="stopTimer" class="px-6 py-2 border rounded  text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono">
-        保存
-      </button>
+  <div class="flex h-screen justify-center items-center bg-red-50">
+    <div class="p-20 bg-white rounded-2xl shadow-xl text-center">
+      <div id ="timer" class="text-6xl font-mono  text-sky-900 mb-4">
+        00:00
+      </div>
+      <div class="flex justify-center space-x-4">
+        <button id="startTimer" class="px-6 py-2 border rounded  text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono">
+          start
+        </button>
+        <button id="onClickPost" class="px-6 py-2 border rounded  text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono">
+          save
+        </button>
+      </div>
     </div>
   </div>
-</div>
-
 
   <script>
     const url = "https://jsonplaceholder.typicode.com/posts"
@@ -37,29 +32,23 @@
 
     function toggleTimer() {
       const startButton = document.getElementById("startTimer");
-      if (startButton.innerText === "スタート") {
+      if (startButton.innerText === "start") {
         startTimer();
-        startButton.innerText = "ストップ"; // テキストを 'stop に変更
+        startButton.innerText = "stop"; // テキストを 'stop に変更
       } else {
-       stopTimer();
-      startButton.innerText = "スタート"; // テキストを 'start' に戻す
-    } 
-  }
+        stopTimer();
+      startButton.innerText = "start"; // テキストを 'start' に戻す
+      } 
+    }
 
     function startTimer() {
+    startTime = new Date();  // 開始時刻を記録
     intervalId = setInterval(updateTimer, 1000);
     }
 
     function stopTimer() {
     clearInterval(intervalId);
-    }
-
-    function resetTimer() {
-    clearInterval(intervalId);
-    seconds = 0;
-    minutes = 0;
-    hours = 0;
-    document.getElementById("timer").innerText = "00:00:00";
+    endTime = new Date();  // 終了時刻を記録
     }
 
     function updateTimer() {
@@ -78,35 +67,41 @@
     document.getElementById("timer").innerText = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     }
 
-    function onClickPost() {
+  function onClickPost() {
     console.log("call onClickPost");
     const url = "/stopwatches"; // ベースURLは相対パスに変更
-    const obj = { hours: hours, minutes: minutes, seconds: seconds };
+    
+    const obj = {
+      stopwatch: {
+        start_time: startTime.toISOString(),
+        end_time: endTime.toISOString()
+      }
+    };
+
     console.log(JSON.stringify(obj));
+    const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
     fetch(url, {
         method: "POST",
         headers: {
-        "Content-Type": "application/json",
+            "Content-Type": "application/json",
+            "X-CSRF-Token": csrfToken
         },
         body: JSON.stringify(obj)
     })
     .then(response => response.json())
     .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-    }
+    .catch(error => {
+        console.error('Error:', error);
+        if (error.response && error.response.data) {
+            console.log(error.response.data);
+        }
+    });
+  }
 
-    // DOMContentLoaded イベントリスナーを追加
-    document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById("startTimer").addEventListener("click", toggleTimer);
-  // 他のイベントリスナー...
-});
-    document.addEventListener('DOMContentLoaded', () => {
-    // document.getElementById("startTimer").addEventListener("click", startTimer);
-    // document.getElementById("stopTimer").addEventListener("click", stopTimer);
-    document.getElementById("resetTimer").addEventListener("click", resetTimer);
-    document.getElementById("updateTimer").addEventListener("click", updateTimer);
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("startTimer").addEventListener("click", toggleTimer);
     document.getElementById("onClickPost").addEventListener("click", onClickPost);
-});
+  });
   </script>
 </body>
 

@@ -1,29 +1,26 @@
 class StopwatchesController < ApplicationController
+  before_action :set_stopwatch, only: [:update] # 必要に応じて他のアクションを追加
+
   def create
-    hours = params[:hours]
-    minutes = params[:minutes]
-    seconds = params[:seconds]
+    @stopwatch = current_user.stopwatches.new(stopwatch_params) 
 
-    @time = Stopwatch.new(stopwatch_params)
-
-    if @time.save
-      render json: { status: 'success', message: 'Time saved successfully' }
+    if @stopwatch.save
+      render json: { status: 'success', message: 'Time saved successfully' }, status: :created
     else
-      render json: { status: 'error', message: 'Failed to save time' }
+      render json: { status: 'error', message: 'Failed to save time', errors: @stopwatch.errors.full_messages }, status: :unprocessable_entity
     end
   end
     
   def index
-    @times = Stopwatch.all
-      respond_to do |format|
+    @stopwatches = Stopwatch.all
+    respond_to do |format|
       format.html
-      format.json { render json: @times }
+      format.json { render json: @stopwatches }
     end
   end
 
   def update
-    @time = Stopwatch.find(params[:id]) # 特定のタイムレコードを取得
-    if @time.update(stopwatch_params)
+    if @stopwatch.update(stopwatch_params)
       redirect_to stopwatches_path, notice: 'Time record was successfully updated.'
     else
       render :edit
@@ -37,6 +34,6 @@ class StopwatchesController < ApplicationController
   end
   
   def stopwatch_params
-    params.require(:stopwatch).permit(:duration, :start_time, :end_time)
+    params.require(:stopwatch).permit(:start_time, :end_time)
   end
 end
