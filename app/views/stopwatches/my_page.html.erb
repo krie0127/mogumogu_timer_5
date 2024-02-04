@@ -1,7 +1,5 @@
-<p id="notice"><%= notice %></p>
-
-<h1>もぐもぐタイム</h1>
-
-<%= column_chart @durations %>
-<!--format: "%Y-%m-%d"()日付で表示する場合-->
-
+<body>
+  <div class="flex h-screen justify-center items-center bg-red-50">
+    <%= column_chart @formatted_durations, colors:["#ff6347"], width: "900px", height: "400px", suffix: "h"%>
+  </div>
+</body>

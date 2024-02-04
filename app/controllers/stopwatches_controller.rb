@@ -44,6 +44,7 @@ class StopwatchesController < ApplicationController
         duration = (stopwatch.end_time - stopwatch.start_time) / 60.0 # 分単位で計算
         @durations[key] += duration # 同日のデータは累計する
       end
+      @formatted_durations = @durations.map { |date, value| [Date.parse(date).strftime("%-d"), value] }.to_h
     end
   end
   
