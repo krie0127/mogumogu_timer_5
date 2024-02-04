@@ -12,7 +12,7 @@
     </a>
     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
       <% if current_user %> 
-      <%= link_to "#", data: { turbo: false } do %>
+      <%= link_to my_page_stopwatches_path, data: { turbo: false } do %>
         <label class="btn btn-ghost rounded-btn flex-col font-normal">
           <i class="fas fa-solid fa-book text-lg"></i>
           <div class="text-s text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700">マイページ</div>
