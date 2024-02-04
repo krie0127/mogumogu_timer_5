@@ -26,6 +26,10 @@ class StopwatchesController < ApplicationController
       render :edit
     end
   end
+
+  def my_page
+    @stopwatches = Stopwatch.all
+  end
   
   private
   
