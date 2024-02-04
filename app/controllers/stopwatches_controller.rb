@@ -28,7 +28,23 @@ class StopwatchesController < ApplicationController
   end
 
   def my_page
-    @stopwatches = Stopwatch.all
+    start_date = Date.today.beginning_of_month
+    end_date = Date.today.end_of_month
+    date_range = (start_date..end_date).to_a
+    
+    # 1ヶ月分の日付でハッシュを0で初期化
+    @durations = date_range.each_with_object({}) do |date, hash|
+      hash[date.strftime("%Y-%m-%d")] = 0
+    end
+    
+    # Stopwatchのデータでハッシュの値を更新
+    Stopwatch.all.each do |stopwatch|
+      key = stopwatch.created_at.strftime("%Y-%m-%d")
+      if @durations.key?(key)
+        duration = (stopwatch.end_time - stopwatch.start_time) / 60.0 # 分単位で計算
+        @durations[key] += duration # 同日のデータは累計する
+      end
+    end
   end
   
   private

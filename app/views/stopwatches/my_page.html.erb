@@ -2,17 +2,6 @@
 
 <h1>もぐもぐタイム</h1>
 
-<%= column_chart Stopwatch.pluck(:start_time) %>
+<%= column_chart @durations %>
 <!--format: "%Y-%m-%d"()日付で表示する場合-->
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Total attendance</th>
-      <th>Matches</th>
-      <th>Stadium capacity</th>
-      <th>Held at</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
