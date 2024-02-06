@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   # get :/my_page, on: :collection
 
-  resources :notification_settings, only: %i[new create edit update]
+  resources :notification_settings, only: %i[index new create edit update]
 
   # Defines the root path route ("/")
   # root 'posts#index'
