@@ -10,12 +10,10 @@
             <%= notification_setting.preferred_time.strftime('%H:%M') %>
           </div>
           <div class="flex space-x-4">
-            <div class="px-4 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono cursor-pointer">
-              編集
-            </div>
-            <div class="px-4 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono cursor-pointer">
-              削除
-            </div>
+            <%= link_to '編集', edit_notification_setting_path(notification_setting), class: "px-4 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono cursor-pointer" %>
+            <%= form_with(model: notification_setting, url: notification_setting_path(notification_setting), method: :delete, data: { confirm: "削除してもよろしいですか？" }) do |form| %>
+              <%= form.submit "削除", class: "px-4 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono cursor-pointer" %>
+            <% end %>
           </div>
         </div>
       <% end %>
@@ -23,9 +21,7 @@
   </div>
   <div class="px-6 py-4">
     <div class="w-full max-w-md mx-auto">
-      <button class="w-full px-4 py-2 bg-red-200 rounded-2xl shadow-xl text-sky-900 border-gray-400 hover:bg-red-300 focus:outline-none font-mono">
-        通知を追加する
-      </button>
+      <%= link_to "通知を追加する", new_notification_setting_path, class: "w-full block text-center px-4 py-2 bg-red-200 rounded-2xl shadow-xl text-sky-900 border-gray-400 hover:bg-red-300 focus:outline-none font-mono" %>
     </div>
   </div>
 </div>

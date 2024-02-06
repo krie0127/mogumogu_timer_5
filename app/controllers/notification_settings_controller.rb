@@ -3,6 +3,7 @@
 # LINE通知設定
 class NotificationSettingsController < ApplicationController
   before_action :authenticate_user!
+  # before_action :set_notification_setting, only: [:edit, :update, :destroy]
   
   def index
     @notification_settings = NotificationSetting.order(:preferred_time)
@@ -23,21 +24,25 @@ class NotificationSettingsController < ApplicationController
     end
   end
 
-  def edit;end
+  def edit
+    @notification_setting = NotificationSetting.find(params[:id])
+  end
 
   def update
-    if @board.update(board_params)
-      redirect_to @board, success: t('defaults.message.not_updaed', item: Board.model_name.human)
+    if @notification_setting.update(notification_setting_params)
+      # 更新に成功した場合のフラッシュメッセージを設定
+      redirect_to notification_settings_path, success: t('defaults.message.updated', item: Board.model_name.human)
     else
-      flash.now['daner'] = t('defaults.message.not_updated', item: Board.model_name.human)
+      # 更新に失敗した場合のフラッシュメッセージを設定
+      flash.now[:danger] = t('defaults.message.not_updated', item: Board.model_name.human)
       render :edit
     end
   end
 
-
   def destroy
-    @board.destroy!
-    redirect_to boards_path, success: t('defaults.message.not_destroy', item: Board.model_name.human)
+    @notification_setting = NotificationSetting.find(params[:id])
+    @notification_setting.destroy
+    redirect_to notification_settings_path, status: :see_other, notice: '通知が削除されました。'
   end
 
   private
