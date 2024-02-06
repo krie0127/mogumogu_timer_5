@@ -5,18 +5,17 @@
         <i class="fas fa-bell"></i> 通知設定 <i class="fas fa-cogs ml-2"></i>
       </h1>
     <div class="mb-4">
-      <%= form.time_field :preferred_time, list: "data-list", step: "1800", class: "block text-lg text-sky-900 mb-2" %>
-
-      <datalist id="data-list"></datalist>
+      <%= form.time_field :preferred_time, list: "new-data-list", step: "1800", class: "block text-lg text-sky-900 mb-2" %>
+      <datalist id="new-data-list"></datalist>
       <script>
-        const dataList = document.getElementById('data-list');
+        const newdataList = document.getElementById('new-data-list');
 
         for (let hour = 0; hour < 24; hour++) {
             for (let minute = 0; minute < 60; minute += 30) {
                 const value = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
                 const option = document.createElement('option');
                 option.value = value;
-                dataList.appendChild(option);
+                newdataList.appendChild(option);
             }
         }
       </script>

@@ -1,0 +1,27 @@
+<div class="flex flex-col h-screen bg-red-50">
+  <div class="text-3xl text-center font-mono text-sky-900 p-6">
+    通知一覧
+  </div>
+  <div class="overflow-auto px-4 mb-4" style="max-height: calc(100% - 10rem);">
+    <div class="w-full max-w-md mx-auto">
+      <% @notification_settings.each do |notification_setting| %>
+        <div class="flex justify-between items-center p-6 bg-white rounded-2xl shadow-xl text-center mb-4">
+          <div class="text-3xl font-mono text-sky-900">
+            <%= notification_setting.preferred_time.strftime('%H:%M') %>
+          </div>
+          <div class="flex space-x-4">
+            <%= link_to '編集', edit_notification_setting_path(notification_setting), class: "px-4 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono cursor-pointer" %>
+            <%= form_with(model: notification_setting, url: notification_setting_path(notification_setting), method: :delete, data: { confirm: "削除してもよろしいですか？" }) do |form| %>
+              <%= form.submit "削除", class: "px-4 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono cursor-pointer" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="px-6 py-4">
+    <div class="w-full max-w-md mx-auto">
+      <%= link_to "通知を追加する", new_notification_setting_path, class: "w-full block text-center px-4 py-2 bg-red-200 rounded-2xl shadow-xl text-sky-900 border-gray-400 hover:bg-red-300 focus:outline-none font-mono" %>
+    </div>
+  </div>
+</div>
