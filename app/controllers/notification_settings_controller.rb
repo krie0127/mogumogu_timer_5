@@ -32,8 +32,8 @@ class NotificationSettingsController < ApplicationController
     if @notification_setting.update(notification_setting_params)
       redirect_to notification_settings_path, success: '通知が更新されました'
     else
-      flash.now[:danger] = ”通知設定の更新に失敗しました”
-      render:edit
+      flash.now[:danger] = "通知設定の更新に失敗しました"
+      render :edit
     end
   end
 

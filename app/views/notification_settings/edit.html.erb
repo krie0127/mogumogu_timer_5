@@ -1,36 +1,29 @@
-<div class="min-h-screen flex items-center justify-center">
-  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-    <%= form_with model: @notification_setting, local: true do |form| %>
-      <h1 class="font-custom text-4xl mb-6 text-sky-900 font-kaisei-decol text-center">
-        <i class="fas fa-bell"></i> 通知設定編集 <i class="fas fa-cogs ml-2"></i>
-      </h1>
-      <div class="mb-4">
-        <%= form.time_field :preferred_time, list: "edit_data", step: "1800", class: "block text-lg text-sky-900 mb-2" %>
-        <datalist id="edit_data"></datalist>
-        <script>
-          const editdataList = document.getElementById('edit_data');
-
-          for (let hour = 0; hour < 24; hour++) {
-              for (let minute = 0; minute < 60; minute += 30) {
-                  const value = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-                  const option = document.createElement('option');
-                  option.value = value;
-                  editdataList.appendChild(option);
-              }
-          }
-        </script>
-      </div>
-
-      <div class="text-center mt-6">
-        <%= form.submit "更新", class: "relative inline-block text-lg group" do %>
-          <span class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
-            <span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
-              <span class="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-gray-900 group-hover:-rotate-180 ease"></span>
-              <span class="relative">更新</span>
-            </span>
-            <span class="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-gray-900 rounded-lg group-hover:mb-0 group-hover:mr-0" data-rounded="rounded-lg"></span>
-          <% end %>
+<div class="flex flex-col justify-center items-center min-h-screen bg-red-50">
+  <div class="text-3xl text-center font-mono text-sky-900 p-6">
+    通知設定
+  </div>
+  <div class="w-full max-w-sm mx-auto">
+    <div class="flex flex-col items-center p-10 bg-white rounded-2xl shadow-xl text-center ">
+      <%= form_with model: @notification_setting, local: true do |form| %>
+        <div class="mb-2 flex flex-col items-center w-full justify-center">
+          <%= form.time_field :preferred_time, id: "edit_data", step: 1800, class: "block text-sky-900 mb-2 text-2xl text-center w-full" %>
+          <datalist id="edit_data"></datalist>
+        <div class="text-center mt-3">
+        <%= form.submit "更新", class: "px-6 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono" %>
         </div>
+      </div>
       <% end %>
-    </div>
+      <script>
+        const editDataList = document.getElementById('edit_data');
+        for (let hour = 0; hour < 24; hour++) {
+          for (let minute = 0; minute < 60; minute += 30) {
+            const value = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+            const option = document.createElement('option');
+            option.value = value;
+            editDataList.appendChild(option);
+          }
+        }
+      </script>
+    </div> 
+  </div>
 </div>
