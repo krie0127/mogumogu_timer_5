@@ -38,12 +38,11 @@
       <% end %>
 
       <% else %>
-      <%= link_to user_line_omniauth_authorize_path(:line), method: :post, data: { turbo: false } do %>
+      <%= button_to "LINEログイン", user_line_omniauth_authorize_path, method: :post, class: "btn btn-primary text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700", data: { turbo: false } %>
         <label class="btn btn-ghost rounded-btn flex-col font-normal space-x-3">
           <i class="fas fa-solid fa-book text-lg"></i>
-          <div class="text-s text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700">LINEログイン</div>
         </label>
-      <% end %>
+
       <%= link_to stopwatches_path, data: { turbo: false } do %>
         <label class="btn btn-ghost rounded-btn flex-col font-normal space-x-3">
           <i class="fas fa-solid fa-book text-lg"></i>
