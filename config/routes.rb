@@ -4,8 +4,11 @@ Rails.application.routes.draw do
   }
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
-    # get 'users/sign_in', to: redirect('/users/auth/line'), as: :new_user_session
+    post 'users/sign_in', to: redirect('/users/auth/line')
   end
+
+  # config/routes.rb
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
