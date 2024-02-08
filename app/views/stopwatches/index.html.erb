@@ -93,7 +93,7 @@
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => {
-        console.error('Error:', error);
+    console.error('Error:', error);
         if (error.response && error.response.data) {
             console.log(error.response.data);
         }
@@ -109,4 +109,3 @@
   })});
   </script>
 </body>
-

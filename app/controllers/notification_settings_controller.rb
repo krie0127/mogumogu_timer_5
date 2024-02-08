@@ -30,7 +30,8 @@ class NotificationSettingsController < ApplicationController
 
   def update
     if @notification_setting.update(notification_setting_params)
-      redirect_to notification_settings_path, success: '通知が更新されました'
+      flash[:notice] = '通知が更新されました'
+      redirect_to notification_settings_path
     else
       flash.now[:danger] = "通知設定の更新に失敗しました"
       render :edit
@@ -39,9 +40,15 @@ class NotificationSettingsController < ApplicationController
 
   def destroy
     @notification_setting = NotificationSetting.find(params[:id])
-    @notification_setting.destroy
-    redirect_to notification_settings_path, notice: '通知が削除されました。'
+    if @notification_setting.destroy
+      flash[:alert] = '通知が削除されました' 
+      redirect_to notification_settings_path
+    else
+      flash[:alert] = '通知の削除に失敗しました' 
+      redirect_to notification_settings_path 
+    end
   end
+  
 
   private
 

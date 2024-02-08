@@ -1,15 +1,26 @@
 class StopwatchesController < ApplicationController
-  before_action :set_stopwatch, only: [:update] # 必要に応じて他のアクションを追加
+  before_action :set_stopwatch, only: [:update] 
 
   def create
     @stopwatch = current_user.stopwatches.new(stopwatch_params) 
 
     if @stopwatch.save
-      render json: { status: 'success', message: 'Time saved successfully' }, status: :created
+      render json: { status: 'success', message: 'タイマーを保存しました' }, status: :created
     else
-      render json: { status: 'error', message: 'Failed to save time', errors: @stopwatch.errors.full_messages }, status: :unprocessable_entity
+      render json: { status: 'error', message: 'タイマーの保存に失敗しました', errors: @stopwatch.errors.full_messages }, status: :unprocessable_entity
     end
   end
+
+  # def create
+  #   @stopwatch = current_user.stopwatches.new(stopwatch_params)
+  #   if @stopwatch.save
+  #     flash[:success] = 'タイマーを保存しました'
+  #     redirect_to some_path
+  #   else
+  #     flash[:error] = 'タイマーの保存に失敗しました'
+  #     render :new
+  #   end
+  # end
     
   def index
     @stopwatches = Stopwatch.all
@@ -21,6 +32,7 @@ class StopwatchesController < ApplicationController
 
   def update
     if @stopwatch.update(stopwatch_params)
+      flash[:notice] = 'タイマーが更新されました'
       redirect_to stopwatches_path, notice: 'Time record was successfully updated.'
     else
       render :edit
