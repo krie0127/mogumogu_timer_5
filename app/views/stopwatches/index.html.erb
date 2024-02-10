@@ -1,20 +1,36 @@
 <body>
   <meta name="csrf-token" content="<%= form_authenticity_token %>"> 
   <div class="flex flex-col justify-center items-center min-h-screen bg-red-50">
-  <div class="text-3xl text-center font-mono text-sky-900 p-6">
+    <div class="text-3xl text-center font-mono text-sky-900 p-6">
     ストップウォッチ
-  </div>
+    </div>
     <div class="p-20 bg-white rounded-2xl shadow-xl text-center">
       <div id ="timer" class="text-6xl font-mono  text-sky-900 mb-4">
         00:00
       </div>
-      <div class="flex justify-center space-x-4">
+      <% if user_signed_in? %>
+      <div class="mb-4"> <!-- マージンボトムを追加して選択とボタン間のスペースを確保 -->
+        <select id="mealType" class="px-6 py-2 border rounded text-sky-900 border-gray-400 font-mono">
+          <option value="">選択してください</option>
+          <option value="breakfast">朝ごはん</option>
+          <option value="lunch">昼ごはん</option>
+          <option value="dinner">夜ごはん</option>
+        </select>
+      </div>
+      <% end %>
         <button id="startTimer" class="px-6 py-2 border rounded  text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono">
-          start
+          スタート
         </button>
-        <button id="onClickPost" data-redirect-url="<%= my_page_stopwatches_path %>" class="px-6 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono">
-          save
+        <% if user_signed_in? %>
+        <button id="onClickPost" class="px-6 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono">
+          保存
         </button>
+        <% else %>
+      <div class=" mt-4 text-sky-900"> 
+        15分以上かけてよくかんで食べましょう〜！
+        <br>※データ保存はLINEログインが必要です🙇‍♀️ </br>
+      </div>
+      <% end %>
       </div>
     </div>
   </div>
@@ -34,12 +50,12 @@
 
     function toggleTimer() {
       const startButton = document.getElementById("startTimer");
-      if (startButton.innerText === "start") {
+      if (startButton.innerText === "スタート") {
         startTimer();
-        startButton.innerText = "stop"; // テキストを 'stop に変更
+        startButton.innerText = "ストップ"; // テキストを 'stop に変更
       } else {
         stopTimer();
-      startButton.innerText = "start"; // テキストを 'start' に戻す
+      startButton.innerText = "スタート"; // テキストを 'start' に戻す
       } 
     }
 
@@ -70,13 +86,19 @@
     }
 
   function onClickPost() {
-    console.log("call onClickPost");
+    const mealType = document.getElementById("mealType").value;
+    console.log("Selected meal type:", mealType);
+    if (!mealType) {
+      alert('未入力の項目があります');
+      return; 
+    }
+
     const url = "/stopwatches"; 
-    
     const obj = {
       stopwatch: {
         start_time: startTime.toISOString(),
-        end_time: endTime.toISOString()
+        end_time: endTime.toISOString(),
+        meal_type: mealType
       }
     };
 
@@ -90,22 +112,42 @@
         },
         body: JSON.stringify(obj)
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => {
+    .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    // 成功した場合、レスポンスから得られたstopwatchオブジェクトのidを使用してリダイレクトする
+    window.location.href = `/stopwatches/${data.id}`;
+  })
+  .catch(error => {
     console.error('Error:', error);
-        if (error.response && error.response.data) {
-            console.log(error.response.data);
-        }
-    });
-  }
+  });
+}
+
+    // .then(response => response.json())
+    // .then(data => console.log(data))
+    // .catch(error => {
+    //     console.error('Error:', error);
+    //     if (error.response && error.response.data) {
+    //         console.log(error.response.data);
+    //     }
+  //   });
+  // }
+
+  // document.addEventListener('DOMContentLoaded', () => {
+  //   document.getElementById("startTimer").addEventListener("click", toggleTimer);
+  //   document.getElementById("onClickPost").addEventListener("click", function() {
+  //   onClickPost(); 
+  //   // データ送信処理が完了したと想定して、マイページへリダイレクト
+  //   window.location.href = "<%= my_page_stopwatches_path %>"; 
+  // })});
 
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById("startTimer").addEventListener("click", toggleTimer);
-    document.getElementById("onClickPost").addEventListener("click", function() {
-    onClickPost(); 
-    // データ送信処理が完了したと想定して、マイページへリダイレクト
-    window.location.href = "<%= my_page_stopwatches_path %>"; 
-  })});
+  document.getElementById("startTimer").addEventListener("click", toggleTimer);
+  document.getElementById("onClickPost").addEventListener("click", onClickPost);
+});
   </script>
 </body>
