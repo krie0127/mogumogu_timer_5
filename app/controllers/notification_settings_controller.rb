@@ -20,10 +20,26 @@ class NotificationSettingsController < ApplicationController
     if @notification_setting.save
       redirect_to notification_settings_path, notice: '通知設定が保存されました'
     else
+      flash.now[:danger] = @notification_setting.errors.full_messages.to_sentence
       render :new
     end
   end
 
+
+  # def create
+  #   @notification_setting = NotificationSetting.new(notification_setting_params)
+  #   @notification_setting.user = current_user
+  
+  #   if @notification_setting.save
+  #     redirect_to notification_settings_path, notice: '通知設定が保存されました。'
+  #   else
+  #     # エラーメッセージをフラッシュメッセージに追加
+  #     flash.now[:danger] = @notification_setting.errors.full_messages.join(", ")
+  #     render :new
+  #   end
+  # end 
+
+  
   def edit
     @notification_setting = NotificationSetting.find(params[:id])
   end
