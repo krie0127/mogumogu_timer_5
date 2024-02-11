@@ -1,0 +1,35 @@
+<div class="simple-calendar shadow-lg rounded-lg overflow-hidden">
+  <div class="calendar-heading flex justify-between items-center p-4 bg-gray-800 text-sky-900">
+    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "bg-gray-700 hover:bg-gray-600 text-sky-900 font-bold py-2 px-4 rounded" %>
+    <span class="calendar-title font-semibold"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
+    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "bg-gray-700 hover:bg-gray-600  font-bold py-2 px-4 rounded" %>
+  </div>
+
+  <table class="w-full border-collapse">
+    <thead class="bg-gray-200">
+      <tr>
+        <% date_range.slice(0, 7).each do |day| %>
+          <!-- ヘッダーにボーダーを追加 -->
+          <th class="py-2 px-4 text-left border border-gray-300"><%= t('date.abbr_day_names')[day.wday] %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% date_range.each_slice(7) do |week| %>
+        <tr>
+          <% week.each do |day| %>
+            <!-- セルにボーダーを追加 -->
+            <%= content_tag :td, class: "py-2 px-4 border border-gray-300 #{calendar.td_classes_for(day)}" do %>
+              <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
+                <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
+              <% else %>
+                <% passed_block.call day, sorted_events.fetch(day, []) %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

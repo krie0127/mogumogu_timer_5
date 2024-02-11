@@ -10,17 +10,6 @@ class StopwatchesController < ApplicationController
       render json: { status: 'error', message: 'タイマーの保存に失敗しました', errors: @stopwatch.errors.full_messages }, status: :unprocessable_entity
     end
   end
-
-  # def create
-  #   @stopwatch = current_user.stopwatches.new(stopwatch_params)
-  #   if @stopwatch.save
-  #     flash[:success] = 'タイマーを保存しました'
-  #     redirect_to some_path
-  #   else
-  #     flash[:error] = 'タイマーの保存に失敗しました'
-  #     render :new
-  #   end
-  # end
     
   def index
     @stopwatches = Stopwatch.all
@@ -69,38 +58,14 @@ class StopwatchesController < ApplicationController
                         .group_by { |stopwatch| stopwatch.created_at.to_date } || {}
   end
 
-  # app/controllers/stopwatches_controller.rb
-def daily
-  @date = Date.parse(params[:date])
-  @meals = current_user.stopwatches.where('DATE(created_at) = ?', @date)
+  def daily
+    @date = Date.parse(params[:date])
+    @meals = current_user.stopwatches.where('DATE(created_at) = ?', @date)
 
-  # その日のStopwatchイベントをビューで表示するためのロジックを追加
-  @breakfast_time = calculate_total_time(@meals, 'breakfast')
-  @lunch_time = calculate_total_time(@meals, 'lunch')
-  @dinner_time = calculate_total_time(@meals, 'dinner')
-end
-
-  # def my_page
-  #   # 初期設定
-  #   start_date = Date.today.beginning_of_month
-  #   end_date = Date.today.end_of_month
-  #   durations = Hash.new { |hash, key| hash[key] = Hash.new(0) }
-  
-  #   # データの取得
-  #   stopwatches = Stopwatch.where(created_at: start_date..end_date)
-  
-  #   # データの加工
-  #   stopwatches.each do |stopwatch|
-  #     day = stopwatch.created_at.to_date
-  #     duration_seconds = (stopwatch.end_time - stopwatch.start_time).to_i
-  #     durations[stopwatch.meal_type][day] += duration_seconds
-  #   end
-  
-  #   # 秒単位の集計結果を時間単位に変換
-  #   @durations = durations.transform_values do |days|
-  #     days.transform_values { |seconds| seconds / 3600.0 }
-  #   end
-  # end
+    @breakfast_time = calculate_total_time(@meals, 'breakfast')
+    @lunch_time = calculate_total_time(@meals, 'lunch')
+    @dinner_time = calculate_total_time(@meals, 'dinner')
+  end
 
   private
 

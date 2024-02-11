@@ -1,10 +1,23 @@
 <body>
-  <div class="flex flex-col h-screen justify-center items-center bg-red-50">
-    <div class="text-2xl text-sky-900 w-100 flex items-center justify-center">
-      <h2><%= Date.today.strftime("%-m. %e. %a") %></h2>  
+  <div class="flex flex-col justify-between bg-red-50">
+    <div class="text-2xl text-sky-900 w-full flex justify-center p-4">
+      <h2><%= Date.today.strftime("%-m. %e. %a") %></h2>
     </div>
-    <div class="w-full max-w-3xl mx-auto">
-      <%= column_chart @formatted_durations, colors:["#ff6347"], suffix: "h"%>
+    <!-- グラフ表示部分 -->
+    <div class="w-full max-w-3xl mx-auto mb-8"> <!-- mb-8 は下部にマージンを追加 -->
+      <%= column_chart @formatted_durations, colors: ["#ff6347"], suffix: "h" %>
+    </div>
+    <!-- カレンダー表示部分 -->
+    <div class="w-full max-w-3xl mx-auto mb-8">
+      <%= month_calendar do |date| %>
+        <%= date.day %>
+        <% key = date.strftime("%Y-%m-%d") %>
+        <% if @durations[key] && @durations[key] > 0 %>
+          <div>
+            <%= link_to "🍙", daily_stopwatches_path(date: key) %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </body>
