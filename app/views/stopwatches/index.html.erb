@@ -9,7 +9,7 @@
         00:00
       </div>
       <% if user_signed_in? %>
-      <div class="mb-4"> <!-- マージンボトムを追加して選択とボタン間のスペースを確保 -->
+      <div class="mb-4"> 
         <select id="mealType" class="px-6 py-2 border rounded text-sky-900 border-gray-400 font-mono">
           <option value="">選択してください</option>
           <option value="breakfast">朝ごはん</option>
@@ -43,10 +43,43 @@
     await console.log(data)
     } 
 
+    let startTime;
+    let endTime;
+
     let seconds = 0;
     let minutes = 0;
     let hours = 0;
     let intervalId;
+
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+        // ページが再び表示されたら経過時間を計算
+        updateElapsedTime();
+    }
+});
+
+function updateElapsedTime() {
+    const startTime = localStorage.getItem('startTime');
+    const endTime = localStorage.getItem('endTime');
+
+    if (startTime && endTime) {
+        // スタート時刻とエンド時刻がローカルストレージに保存されている場合、経過時間を計算
+        const start = new Date(startTime);
+        const end = new Date(endTime);
+        const elapsedTimeMs = end - start;
+        displayElapsedTime(elapsedTimeMs);
+    }
+}
+
+function displayElapsedTime(elapsedTimeMs) {
+    // 経過時間を分と秒に変換
+    const seconds = Math.floor(elapsedTimeMs / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    // タイマーの表示を更新
+    document.getElementById("timer").innerText = `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+}
 
     function toggleTimer() {
       const startButton = document.getElementById("startTimer");
@@ -64,10 +97,12 @@
     intervalId = setInterval(updateTimer, 1000);
     }
 
-    function stopTimer() {
+  function stopTimer() {
     clearInterval(intervalId);
-    endTime = new Date();  
-    }
+    endTime = new Date();
+    const elapsedTimeMs = endTime - startTime; // ミリ秒単位で経過時間を計算
+    console.log(`Elapsed Time: ${elapsedTimeMs} milliseconds`);
+  }
 
     function updateTimer() {
     seconds++;
@@ -86,6 +121,13 @@
     }
 
   function onClickPost() {
+    if (!startTime) {
+      alert('スタートボタンを押してください。');
+      return; // これ以上の処理を行わない
+    }
+    if (!endTime) {
+        endTime = new Date();
+    }
     const mealType = document.getElementById("mealType").value;
     console.log("Selected meal type:", mealType);
     if (!mealType) {
@@ -119,7 +161,6 @@
     return response.json();
   })
   .then(data => {
-    // 成功した場合、レスポンスから得られたstopwatchオブジェクトのidを使用してリダイレクトする
     window.location.href = `/stopwatches/${data.id}`;
   })
   .catch(error => {
@@ -127,23 +168,15 @@
   });
 }
 
-    // .then(response => response.json())
-    // .then(data => console.log(data))
-    // .catch(error => {
-    //     console.error('Error:', error);
-    //     if (error.response && error.response.data) {
-    //         console.log(error.response.data);
-    //     }
-  //   });
-  // }
+// function displayElapsedTime(elapsedTimeMs) {
+//     // 経過時間を分と秒に変換
+//     const seconds = Math.floor(elapsedTimeMs / 1000);
+//     const minutes = Math.floor(seconds / 60);
+//     const remainingSeconds = Math.floor(seconds % 60); // 端数を切り捨て
 
-  // document.addEventListener('DOMContentLoaded', () => {
-  //   document.getElementById("startTimer").addEventListener("click", toggleTimer);
-  //   document.getElementById("onClickPost").addEventListener("click", function() {
-  //   onClickPost(); 
-  //   // データ送信処理が完了したと想定して、マイページへリダイレクト
-  //   window.location.href = "<%= my_page_stopwatches_path %>"; 
-  // })});
+//     // タイマーの表示を更新
+//     document.getElementById("timer").innerText = `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+// }
 
   document.addEventListener('DOMContentLoaded', () => {
   document.getElementById("startTimer").addEventListener("click", toggleTimer);

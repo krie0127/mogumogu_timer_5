@@ -4,7 +4,8 @@
   </div>
   <div class="w-full max-w-sm mx-auto">
     <div class="flex flex-col items-center p-10 bg-white rounded-2xl shadow-xl text-center ">
-      <%= form_with model: @notification_setting, url: notification_settings_path do |form| %>
+      <%= form_with model: @notification_setting, url: notification_settings_path, data: { turbo: false } do |form| %>
+
         <div class="mb-4 flex flex-col items-center w-full justify-center">
           <%= form.time_field :preferred_time, list: "new-data-list", step: "1800", class: "block text-sky-900 mb-2 text-2xl text-center w-full" %>
           <datalist id="new-data-list"></datalist>

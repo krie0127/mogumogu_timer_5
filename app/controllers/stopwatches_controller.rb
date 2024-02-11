@@ -28,12 +28,28 @@ class StopwatchesController < ApplicationController
     end
   end
 
+  # def show
+  #   @meals = current_user.stopwatches.where('DATE(start_time) = ?', Date.today)
+  #   @breakfast_time = calculate_total_time(@meals, 'breakfast')
+  #   @lunch_time = calculate_total_time(@meals, 'lunch')
+  #   @dinner_time = calculate_total_time(@meals, 'dinner')
+
+  #   @breakfast_time_in_seconds = @breakfast_time / 1000
+  #   @minutes, @seconds = @breakfast_time_in_seconds.divmod(60)
+  # end
+
   def show
     @meals = current_user.stopwatches.where('DATE(start_time) = ?', Date.today)
-    @breakfast_time = calculate_total_time(@meals, 'breakfast')
-    @lunch_time = calculate_total_time(@meals, 'lunch')
-    @dinner_time = calculate_total_time(@meals, 'dinner')
+    breakfast_result = calculate_total_time(@meals, 'breakfast')
+    @breakfast_time = "#{breakfast_result[:minutes]} 分 #{breakfast_result[:seconds]} 秒"
+  
+    lunch_result = calculate_total_time(@meals, 'lunch')
+    @lunch_time = "#{lunch_result[:minutes]} 分 #{lunch_result[:seconds]} 秒"
+  
+    dinner_result = calculate_total_time(@meals, 'dinner')
+    @dinner_time = "#{dinner_result[:minutes]} 分 #{dinner_result[:seconds]} 秒"
   end
+  
 
   def my_page
     start_date = Date.today.beginning_of_month
@@ -61,19 +77,28 @@ class StopwatchesController < ApplicationController
   def daily
     @date = Date.parse(params[:date])
     @meals = current_user.stopwatches.where('DATE(created_at) = ?', @date)
-
-    @breakfast_time = calculate_total_time(@meals, 'breakfast')
-    @lunch_time = calculate_total_time(@meals, 'lunch')
-    @dinner_time = calculate_total_time(@meals, 'dinner')
+    
+    breakfast_result = calculate_total_time(@meals, 'breakfast')
+    @breakfast_time = "#{breakfast_result[:minutes]} 分 #{breakfast_result[:seconds]} 秒"
+  
+    lunch_result = calculate_total_time(@meals, 'lunch')
+    @lunch_time = "#{lunch_result[:minutes]} 分 #{lunch_result[:seconds]} 秒"
+  
+    dinner_result = calculate_total_time(@meals, 'dinner')
+    @dinner_time = "#{dinner_result[:minutes]} 分 #{dinner_result[:seconds]} 秒"
   end
 
   private
 
-  def calculate_total_time(meals, meal_type)
-    meals.where(meal_type: meal_type).sum do |meal|
-      (meal.end_time - meal.start_time) / 60.0 # 分単位で時間を計算
+  def calculate_total_time(stopwatches, meal_type)
+    total_seconds = stopwatches.where(meal_type: meal_type).sum do |stopwatch|
+      (stopwatch.end_time - stopwatch.start_time).to_i
     end
+    minutes = total_seconds / 60
+    seconds = total_seconds % 60
+    { minutes: minutes, seconds: seconds }
   end
+  
   
   def set_stopwatch
     @stopwatch = Stopwatch.find(params[:id])
