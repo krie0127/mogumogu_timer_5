@@ -1,12 +1,13 @@
-<header class="bg-rose-200 flex justify-between items-center">
+<header class="bg-rose-100 flex justify-between items-center">
   <div class="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
     <a class="flex title-font font-medium items-center text-sky-900 hover:border-sky-700 mb-4 md:mb-0">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-      </svg>    
+      <div class="inline-block bg-gray-200 rounded-full p-3">
+        <%= image_tag '/meal_icon.png', alt: 'Logo', class: 'w-10 h-10' %>
+      </div>
+
       <div class="pl-3 hidden sm:flex" ml-2 md:ml-3>
       <%= link_to root_path, data: { turbo: false } do %>
-        <div class="text-lg text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700">もぐもぐタイマー</div>
+        <div class="text-lg text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700 font-mono">もぐもぐタイマー</div>
       <% end %>
     </div>
     </a>
@@ -15,25 +16,25 @@
       <%= link_to my_page_stopwatches_path, data: { turbo: false } do %>
         <label class="btn btn-ghost rounded-btn flex-col font-normal">
           <i class="fas fa-solid fa-book text-lg"></i>
-          <div class="text-s text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700">マイページ</div>
+          <div class="text-s text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700 font-mono">マイページ</div>
         </label>
       <% end %>
      <%= link_to stopwatches_path, data: { turbo: false } do %>
         <label class="btn btn-ghost rounded-btn flex-col font-normal space-x-3">
           <i class="fas fa-solid fa-book text-lg"></i>
-          <div class="text-s text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700">タイマー</div>
+          <div class="text-s text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700 font-mono">タイマー</div>
         </label>
       <% end %>
       <%= link_to notification_settings_path, data: { turbo: false } do %>
         <label class="btn btn-ghost rounded-btn flex-col font-normal space-x-3">
           <i class="fas fa-solid fa-book text-lg"></i>
-          <div class="text-s text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700">通知</div>
+          <div class="text-s text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700 font-mono">通知</div>
         </label>
       <% end %>
       <%= link_to destroy_user_session_path, method: :delete, data: { turbo: false } do %>
         <label class="btn btn-ghost rounded-btn flex-col font-normal space-x-3">
           <i class="fas fa-solid fa-book text-lg"></i>
-          <div class="text-s text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700">ログアウト</div>
+          <div class="text-s text-sky-900 hover:border-b hover:border-sky-700 hover:text-sky-700 font-mono">ログアウト</div>
         </label>
       <% end %>
 
