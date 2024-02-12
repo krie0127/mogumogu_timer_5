@@ -66,7 +66,7 @@ class StopwatchesController < ApplicationController
 
   def daily
     @date = Date.parse(params[:date])
-    @meals = current_user.stopwatches.where('DATE(created_at) = ?', @date)    
+    @meals = current_user.stopwatches.where('DATE(created_at) = ?', @date)
     breakfast_result = calculate_total_time(@meals, 'breakfast')
     @breakfast_time = "#{breakfast_result[:minutes]} 分 #{breakfast_result[:seconds]} 秒"
 

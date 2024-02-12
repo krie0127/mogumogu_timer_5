@@ -41,13 +41,12 @@ class NotificationSettingsController < ApplicationController
   def destroy
     @notification_setting = NotificationSetting.find(params[:id])
     if @notification_setting.destroy
-      flash[:alert] = '通知が削除されました' 
-      redirect_to notification_settings_path
+      flash[:alert] = '通知が削除されました'
     else
       flash[:alert] = '通知の削除に失敗しました'
-      redirect_to notification_settings_path
     end
-  end  
+    redirect_to notification_settings_path
+  end
 
   private
 
