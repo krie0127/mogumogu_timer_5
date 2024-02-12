@@ -8,10 +8,10 @@
         <div class="flex justify-between items-center p-6 bg-white rounded-2xl shadow-xl text-center mb-4">
           <div class="text-3xl font-mono text-sky-900">
             <% if notification_setting.preferred_time %>
-  <%= notification_setting.preferred_time.strftime('%H:%M') %>
-<% else %>
-  時間が設定されていません
-<% end %>
+              <%= notification_setting.preferred_time.strftime('%H:%M') %>
+            <% else %>
+              時間が設定されていません
+            <% end %>
           </div>
           <div class="flex space-x-4">
             <%= link_to '編集', edit_notification_setting_path(notification_setting), class: "px-4 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono cursor-pointer" %>
