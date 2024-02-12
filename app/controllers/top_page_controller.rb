@@ -1,5 +1,4 @@
 class TopPageController < ApplicationController
-
   def top; end
 
   def privacy; end

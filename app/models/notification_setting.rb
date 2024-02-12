@@ -17,9 +17,9 @@ class NotificationSetting < ApplicationRecord
 
   def custom_preferred_time_validation
     if preferred_time.blank?
-      errors.add(:base, "時間を指定してください")
+      errors.add(:base, '時間を指定してください')
     elsif self.class.where(user_id: user_id).where.not(id: id).exists?(preferred_time: preferred_time)
-      errors.add(:base, "この時間はすでに設定されています")
+      errors.add(:base, 'この時間はすでに設定されています')
     end
   end
 end

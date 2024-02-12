@@ -33,7 +33,7 @@ class NotificationSettingsController < ApplicationController
       flash[:notice] = '通知が更新されました'
       redirect_to notification_settings_path
     else
-      flash.now[:danger] = "通知設定の更新に失敗しました"
+      flash.now[:danger] = '通知設定の更新に失敗しました'
       render :edit
     end
   end
@@ -44,11 +44,10 @@ class NotificationSettingsController < ApplicationController
       flash[:alert] = '通知が削除されました' 
       redirect_to notification_settings_path
     else
-      flash[:alert] = '通知の削除に失敗しました' 
-      redirect_to notification_settings_path 
+      flash[:alert] = '通知の削除に失敗しました'
+      redirect_to notification_settings_path
     end
-  end
-  
+  end  
 
   private
 

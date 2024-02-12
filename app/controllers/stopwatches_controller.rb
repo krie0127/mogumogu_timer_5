@@ -1,8 +1,8 @@
 class StopwatchesController < ApplicationController
-  before_action :set_stopwatch, only: [:update] 
+  before_action :set_stopwatch, only: [:update]
 
   def create
-    @stopwatch = current_user.stopwatches.new(stopwatch_params) 
+    @stopwatch = current_user.stopwatches.new(stopwatch_params)
 
     if @stopwatch.save
       render json: { status: 'success', message: 'タイマーを保存しました' }, status: :created
@@ -48,7 +48,7 @@ class StopwatchesController < ApplicationController
     
     # 1ヶ月分の日付でハッシュを0で初期化
     @durations = date_range.each_with_object({}) do |date, hash|
-      hash[date.strftime("%Y-%m-%d")] = 0
+      hash[date.strftime('%Y-%m-%d')] = 0
     end
     
     # Stopwatchのデータでハッシュの値を更新
@@ -58,7 +58,7 @@ class StopwatchesController < ApplicationController
         duration = (stopwatch.end_time - stopwatch.start_time) / 60.0 # 分単位で計算
         @durations[key] += duration # 同日のデータは累計する
       end
-      @formatted_durations = @durations.map { |date, value| [Date.parse(date).strftime("%-d"), value] }.to_h
+      @formatted_durations = @durations.map { |date, value| [Date.parse(date).strftime('%-d'), value] }.to_h
     end
     @stopwatches = Stopwatch.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
                         .group_by { |stopwatch| stopwatch.created_at.to_date } || {}
@@ -66,11 +66,10 @@ class StopwatchesController < ApplicationController
 
   def daily
     @date = Date.parse(params[:date])
-    @meals = current_user.stopwatches.where('DATE(created_at) = ?', @date)
-    
+    @meals = current_user.stopwatches.where('DATE(created_at) = ?', @date)    
     breakfast_result = calculate_total_time(@meals, 'breakfast')
     @breakfast_time = "#{breakfast_result[:minutes]} 分 #{breakfast_result[:seconds]} 秒"
-  
+
     lunch_result = calculate_total_time(@meals, 'lunch')
     @lunch_time = "#{lunch_result[:minutes]} 分 #{lunch_result[:seconds]} 秒"
   
@@ -88,7 +87,6 @@ class StopwatchesController < ApplicationController
     seconds = total_seconds % 60
     { minutes: minutes, seconds: seconds }
   end
-  
   
   def set_stopwatch
     @stopwatch = Stopwatch.find(params[:id])
