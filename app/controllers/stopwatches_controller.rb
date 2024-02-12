@@ -28,16 +28,6 @@ class StopwatchesController < ApplicationController
     end
   end
 
-  # def show
-  #   @meals = current_user.stopwatches.where('DATE(start_time) = ?', Date.today)
-  #   @breakfast_time = calculate_total_time(@meals, 'breakfast')
-  #   @lunch_time = calculate_total_time(@meals, 'lunch')
-  #   @dinner_time = calculate_total_time(@meals, 'dinner')
-
-  #   @breakfast_time_in_seconds = @breakfast_time / 1000
-  #   @minutes, @seconds = @breakfast_time_in_seconds.divmod(60)
-  # end
-
   def show
     @meals = current_user.stopwatches.where('DATE(start_time) = ?', Date.today)
     breakfast_result = calculate_total_time(@meals, 'breakfast')
