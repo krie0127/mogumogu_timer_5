@@ -1,8 +1,8 @@
 <div class="simple-calendar shadow-lg rounded-lg overflow-hidden">
-  <div class="calendar-heading flex justify-between items-center p-4 bg-gray-800 text-sky-900">
-    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "bg-gray-700 hover:bg-gray-600 text-sky-900 font-bold py-2 px-4 rounded" %>
+  <div class="calendar-heading flex justify-between items-center p-4 bg-gray-200 text-gray-500">
+    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "bg-gray-100 hover:bg-gray-300 font-bold py-2 px-4 rounded" %>
     <span class="calendar-title font-semibold"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
-    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "bg-gray-700 hover:bg-gray-600  font-bold py-2 px-4 rounded" %>
+    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "bg-gray-100 hover:bg-gray-300 font-bold py-2 px-4 rounded" %>
   </div>
 
   <table class="w-full border-collapse">
