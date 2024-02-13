@@ -8,6 +8,7 @@
         <div class="mb-2 flex flex-col items-center w-full justify-center">
           <%= form.time_field :preferred_time, id: "edit_data", step: 1800, class: "block text-sky-900 mb-2 text-2xl text-center w-full" %>
           <datalist id="edit_data"></datalist>
+          <p class="text-gray-500 leading-relaxed font-mono text-base">※30分単位</p>
         <div class="text-center mt-3">
         <%= form.submit "更新", class: "px-6 py-2 border rounded text-sky-900 border-gray-400 hover:bg-red-100 focus:outline-none font-mono" %>
         </div>
