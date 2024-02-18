@@ -43,6 +43,6 @@ class LinebotController < ApplicationController
       end
     end
 
-    head :ok # 処理が正常な場合200OKレスポンスを返す
+    head :ok
   end
 end
