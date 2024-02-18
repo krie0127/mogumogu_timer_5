@@ -12,7 +12,7 @@ class StopwatchesController < ApplicationController
   end
     
   def index
-    @stopwatches = Stopwatch.all
+    @stopwatches = current_user.stopwatches
     respond_to do |format|
       format.html
       format.json { render json: @stopwatches }
@@ -52,7 +52,7 @@ class StopwatchesController < ApplicationController
     end
     
     # Stopwatchのデータでハッシュの値を更新
-    Stopwatch.all.each do |stopwatch|
+    current_user.stopwatches.each do |stopwatch|
       key = stopwatch.created_at.strftime("%Y-%m-%d")
       if @durations.key?(key)
         duration = (stopwatch.end_time - stopwatch.start_time) / 60.0 # 分単位で計算
@@ -89,7 +89,7 @@ class StopwatchesController < ApplicationController
   end
   
   def set_stopwatch
-    @stopwatch = Stopwatch.find(params[:id])
+    @stopwatch = current_user.stopwatches.find(params[:id])
   end
   
   def stopwatch_params

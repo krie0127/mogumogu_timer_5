@@ -5,7 +5,7 @@ class NotificationSettingsController < ApplicationController
   before_action :find_notification_setting, only: [:edit, :update, :destroy]
   
   def index
-    @notification_settings = NotificationSetting.order(:preferred_time)
+    @notification_settings = current_user.notification_settings.order(:preferred_time)
   end
 
   def new
@@ -50,9 +50,16 @@ class NotificationSettingsController < ApplicationController
 
   private
 
+  # def find_notification_setting
+  #   @notification_setting = NotificationSetting.find(params[:id])
+  # end
+
   def find_notification_setting
-    @notification_setting = NotificationSetting.find(params[:id])
+    @notification_setting = current_user.notification_settings.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to notification_settings_path, alert: 'Unauthorized access!'
   end
+  
 
   def notification_setting_params
     params.require(:notification_setting).permit(:preferred_time)
