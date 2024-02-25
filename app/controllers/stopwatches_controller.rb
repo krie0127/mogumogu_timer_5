@@ -12,7 +12,12 @@ class StopwatchesController < ApplicationController
   end
     
   def index
-    @stopwatches = current_user.stopwatches
+    if current_user
+      @stopwatches = current_user.stopwatches
+    else
+      @stopwatches = []  # または適切な処理を追加
+    end
+  
     respond_to do |format|
       format.html
       format.json { render json: @stopwatches }
