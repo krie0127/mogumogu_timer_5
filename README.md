@@ -1,5 +1,9 @@
 ## もぐもぐタイマー
 
+#### デモ動画
+
+https://www.canva.com/design/DAGEWBb3ajo/pygJtizXYPxsw0FKGnBOIA/watch?utm_content=DAGEWBb3ajo&utm_campaign=designshare&utm_medium=link&utm_source=editor
+
 ## サービス概要
 日々の食事の時間を計測し記録することで早食いを防止するサービスです。
 
@@ -51,8 +55,4 @@
 * 目標がランダムで表示される機能（一口の量を減らす、噛む回数をいつもより5回増やす、箸を置く、薄味の料理を食べる、ながら食べしない）
 * 画像アップロード機能
 * ゲストログイン機能
-
-#### デモ動画
-
-https://www.canva.com/design/DAGEWBb3ajo/pygJtizXYPxsw0FKGnBOIA/watch?utm_content=DAGEWBb3ajo&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
