@@ -56,5 +56,3 @@
 
 https://www.canva.com/design/DAGEWBb3ajo/pygJtizXYPxsw0FKGnBOIA/watch?utm_content=DAGEWBb3ajo&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
-![画面収録 2024-05-05 16 43 23](https://github.com/krie0127/mogumogu_timer_5/assets/130209491/559d757c-8cea-4b52-9985-fd519742564e)
-
