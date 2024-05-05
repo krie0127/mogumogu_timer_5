@@ -1,10 +1,8 @@
 ## もぐもぐタイマー
-
-#### デモ動画
-
-https://www.canva.com/design/DAGEWBb3ajo/pygJtizXYPxsw0FKGnBOIA/watch?utm_content=DAGEWBb3ajo&utm_campaign=designshare&utm_medium=link&utm_source=editor
-
 ![image](https://github.com/krie0127/mogumogu_timer_5/assets/130209491/f9a5f3b0-264e-4260-b0f8-7931018a4cb5)
+
+## デモ動画
+https://www.canva.com/design/DAGEWBb3ajo/pygJtizXYPxsw0FKGnBOIA/watch?utm_content=DAGEWBb3ajo&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
 
 ## サービス概要
